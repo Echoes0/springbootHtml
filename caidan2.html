@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="./element.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div id="app" style="width: 80%; margin: 0 auto">
+    
+    <h2>用户信息表</h2>
+
+
+    <el-row>
+        <el-col :span="6" style="margin-bottom: 10px">
+            <el-input v-model="name" style="width: 40%" ></el-input>
+            <el-button type="info" class="el-icon-search" @click="loadTable(1)"></el-button>
+            <el-button type="primary" @click="add">新增</el-button>
+        </el-col>
+
+    </el-row>
+
+   <el-table
+            :data="page"
+            stripe
+            border
+            style="width: 100%">
+        <el-table-column
+                prop="sno"
+                label="学号"
+        >
+        </el-table-column>
+        <el-table-column
+                prop="name"
+                label="姓名"
+        >
+        </el-table-column>
+        <el-table-column
+                prop="sex"
+                label="性别">
+        </el-table-column>
+        <el-table-column
+                prop="birthday"
+                label="生日">
+        </el-table-column>
+        <el-table-column
+                prop="major"
+                label="专业">
+        </el-table-column>
+        <el-table-column
+                prop="grade"
+                label="班级">
+        </el-table-column>
+        <el-table-column
+        prop="source_address"
+        label="生源地">
+        </el-table-column>
+        <el-table-column
+        prop="scores"
+        label="入学成绩">
+        </el-table-column>
+        <el-table-column
+        prop="phone"
+        label="联系方式">
+        </el-table-column>
+        <el-table-column
+        prop="id"
+        label="身份证号">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="100">
+            <template slot-scope="scope">
+                <el-button type="primary" icon="el-icon-edit" size="small" circle @click="edit(scope.row)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="small" circle @click="del(scope.row.id)"></el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <el-row type="flex" justify="center" style="margin-top: 10px">
+        <el-pagination
+                layout="prev, pager, next"
+                :page-size="pageSize"
+                :current-page="pageNum"
+                @prev-click="loadTable"
+                @current-change="loadTable"
+                @next-click="loadTable"
+                :total="page.totalElements">
+        </el-pagination>
+        <!-- <div class="block">
+            <span class="demonstration"></span>
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="pageNum"
+              :page-sizes="[1, 2, 5, 10]"
+              :page-size="pageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="page.length">
+            </el-pagination>
+          </div> -->
+    </el-row>
+
+    <el-dialog
+            title="用户信息"
+            :visible.sync="dialogVisible"
+            width="30%">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="姓名">
+                <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="性别">
+                <el-radio v-model="form.sex" label="男">男</el-radio>
+                <el-radio v-model="form.sex" label="女">女</el-radio>
+            </el-form-item>
+            <el-form-item label="生日">
+                <div class="block">
+                    <el-date-picker
+                            v-model="form.birthday"
+
+                            type="date"
+                            placeholder="选择日期"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </div>
+
+            </el-form-item>
+            <el-form-item label="专业">
+                <el-input v-model="form.major"></el-input>
+            </el-form-item>
+            <el-form-item label="班级">
+                <el-input v-model="form.grade"></el-input>
+            </el-form-item>
+            <el-form-item label="生源地">
+                <el-select v-model="form.source_address" placeholder="请选择">
+                    <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="入学成绩">
+                <el-input v-model="form.scores"></el-input>
+            </el-form-item>
+            <el-form-item label="联系方式">
+                <el-input v-model="form.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="身份证号">
+                <el-input v-model="form.id"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="save">确 定</el-button>
+        </span>
+    </el-dialog>
+
+</div>
+<style>
+    body {
+      background: url("./02.jfif")no-repeat;
+      background-size:cover;
+    }
+</style>
+<!-- <script src="/js/jquery.min.js"></script>
+<script src="/js/vue.js"></script> -->
+ <!-- 引入组件库  -->
+<!-- <script src="/js/element.js"></script> --> 
+<script src="./vue.js"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            page: [],
+            name: '',
+            pageNum: 1,
+            pageSize: 9,
+            dialogVisible: false,
+            isadd:false,
+            form: {},
+            options: [{
+                value: '重庆',
+                label: '重庆'
+            }, {
+                value: '四川',
+                label: '四川'
+            }, {
+                value: '北京',
+                label: '北京'
+            }, {
+                value: '天津',
+                label: '天津'
+            }, {
+                value: '上海',
+                label: '上海'
+            }, {
+                value: '内蒙古',
+                label: '内蒙古'
+            }, {
+                value: '广西',
+                label: '广西'
+            }, {
+                value: '西藏',
+                label: '西藏'
+            }, {
+                value: '宁夏',
+                label: '宁夏'
+            }, {
+                value: '新疆',
+                label: '新疆'
+            }, {
+                value: '香港',
+                label: '香港'
+            }, {
+                value: '澳门',
+                label: '澳门'
+            }, {
+                value: '河北',
+                label: '河北'
+            }, {
+                value: '山西',
+                label: '山西'
+            }, {
+                value: '辽宁',
+                label: '辽宁'
+            }, {
+                value: '吉林',
+                label: '吉林'
+            }, {
+                value: '黑龙江',
+                label: '黑龙江'
+            }, {
+                value: '江苏',
+                label: '江苏'
+            }, {
+                value: '浙江',
+                label: '浙江'
+            }, {
+                value: '安徽',
+                label: '安徽'
+            }, {
+                value: '福建',
+                label: '福建'
+            }, {
+                value: '江西',
+                label: '江西'
+            }, {
+                value: '山东',
+                label: '山东'
+            }, {
+                value: '河南',
+                label: '河南'
+            }, {
+                value: '湖北',
+                label: '湖北'
+            }, {
+                value: '湖南',
+                label: '湖南'
+            }, {
+                value: '广东',
+                label: '广东'
+            }, {
+                value: '海南',
+                label: '海南'
+            }, {
+                value: '贵州',
+                label: '贵州'
+            }, {
+                value: '云南',
+                label: '云南'
+            }, {
+                value: '陕西',
+                label: '陕西'
+            }, {
+                value: '甘肃',
+                label: '甘肃'
+            }, {
+                value: '青海',
+                label: '青海'
+            }, {
+                value: '台湾',
+                label: '台湾'
+            }
+            ],
+            value: ''
+        },
+        created() {
+            this.loadTable(this.pageNum);
+        },
+        methods: {
+            loadTable(num) {
+                this.pageNum = num;
+               $.post("http://47.96.229.44:8080/student/selectStudent?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&name="+this.name).then(res => {
+                    this.page = res.data;
+                });
+            },
+            // handleSizeChange(newSize) {
+            //     console.log(`每页 ${newSize} 条`);
+            //     this.pageSize=newSize;
+            //     this.loadTable(this.pageSize);
+            //     },
+            //     handleCurrentChange(newPage) {
+            //     console.log(`当前页: ${newPage}`);
+            //     this.pageNum=newPage;
+            //     this.loadTable(this.pageSize);
+            // },
+            add() {
+                this.dialogVisible = true;
+                this.isadd=true;
+                this.form = {};
+            },
+            edit(row) {
+                this.isadd=false;
+                this.form = row;
+                this.dialogVisible = true;
+            },
+            save() {
+                this.dialogVisible=false;
+                let month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                let birthday=this.form.birthday.toString().split(' ');
+                let birthdayDay;
+                if (birthday.length===7)
+                {
+                    let birthdayMonth;
+                    for(let i=0;i<12;i++)
+                    {
+                        if (birthday[1]===month[i])
+                        {
+                            birthdayMonth=i+1;
+                            break;
+                        }
+                    }
+                    birthdayDay=birthday[3]+"-"+birthdayMonth+"-"+birthday[2];
+                }
+                else{
+                    birthdayDay=this.form.birthday;
+                }
+                const data={
+                    name: this.form.name,
+                    sex:this.form.sex,
+                    birthday:birthdayDay,
+                    major:this.form.major,
+                    grade:this.form.grade,
+                    source_address:this.form.source_address,
+                    scores:this.form.scores,
+                    phone:this.form.phone,
+                    id:this.form.id
+                }
+                
+                if (!this.isadd) {
+                    // 编辑
+                    $.ajax(
+                        {
+                            type: "post",
+                            url: 'http://localhost:8080/student/changeStudent',
+                            dataType: "json",
+                            data: data,
+                            async: false,
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            success: function (data) {
+                                alert(data.msg)
+                                if (data.code===200)
+                                {
+                                    this.dialogVisible=false;
+                                }
+                            },
+                        })
+                } else {
+                    // 新增
+                    $.ajax(
+                        {
+                            type: "post",
+                            url: 'http://localhost:8080/student/addStudent',
+                            dataType: "json",
+                            data: data,
+                            async: false,
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            success: function (data) {
+                                alert(data.msg)
+                                if (data.code===200)
+                                {
+                                    this.dialogVisible=false;
+                                }
+                            },
+                        })
+                }
+            },
+            del(id) {
+                let data={
+                    id:id
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/student/deleteStudent',
+                    type: 'post',
+                    data:data,
+                    dataType:'json',
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                }).then(res => {
+                    this.loadTable(1);
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

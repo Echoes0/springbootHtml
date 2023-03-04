@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title>revise</title>
+    <style>
+        body {
+            background: url("02.jfif")no-repeat;
+            background-size:cover;
+        }
+        #bigbox {
+            width: 20%;
+            /*宽度*/
+            height: 360px;
+            /*高度*/
+            background-color: #97b8c191;
+            /*背景颜色*/
+            margin: auto;
+            /*外边距*/
+            margin-top: 6%;
+            /*上边距*/
+            text-align: center;
+            /*位置*/
+            border-radius: 10px;
+            /*圆角边框*/
+            padding: 50px;
+            /*内边距*/
+            font-size: 25px;
+            font-family: 华文行楷;
+        }
+        .td_left {
+            line-height:20px;
+            width: 100px;
+            font-family: 华文行楷;
+            font-size: large;
+            text-align: left;
+        }
+        h1 {
+            color: black;
+            margin-top: 5%;
+        }
+        .Box {
+            margin-top: 20%;
+        }
+
+        input {
+            border: 0;
+            /*单独设置下边框*/
+            width: 60%;
+            font-size: 20px;
+            color: black;
+            background: transparent;
+            /*背景属性*/
+            border-bottom: 1px solid black;
+            padding: 5px 10px;
+            outline: none;
+            /*轮廓*/
+            margin-top: 10px;
+            font-family: 华文行楷;
+        }
+        /*.button {*/
+        /*    margin-top: 20px;*/
+        /*    height: 20%;*/
+        /*    size: 20px;*/
+        /*    width: 20%;*/
+        /*    font-size: 15px;*/
+        /*    font-family:  华文行楷;*/
+        /*    text-align: center;*/
+        /*}*/
+        .allbutton {
+            margin-top: 30px;
+        }
+
+        .add {
+            width: 60px;
+            height: 40px;
+            color: black;
+            background-color: #6a686827;
+            font-family: 华文行楷;
+            font-size: medium;
+        }
+
+        .add:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .add:active {
+            background-color: #ffffff;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+<div id="bigbox">
+        <h1>修改密码</h1>
+    <div class="Box">
+        <div id="top_box">
+<!--            <div class="td_left">账户：</div>-->
+            <div class="td_right"><input type="text" id="account" placeholder="请输入账户">
+        </div>
+        <div id="first_box">
+<!--            <div class="td_left">旧密码：</div>-->
+            <input type="text" id="oldpassword" placeholder="请输入旧密码"></div>
+        </div>
+            <div id="second_box">
+                <input type="text" id="newpassword" placeholder="请输入新密码">
+            </div>
+            <div id="third_box">
+                <input type="text" id="secondpassword" placeholder="请确认新密码">
+            </div>
+        </div>
+    <div class="allbutton">
+        <button onclick="changePassword()" type="button" class="add">确认</button>
+    </div>
+</div>
+<script>
+    function changePassword() {
+        var url = "http://192.168.142.242:8080/administrator/changePassword"
+        var newpassword=document.getElementById("newpassword").value;
+        var secondpassword=document.getElementById("secondpassword").value;
+        if(newpassword !== secondpassword) {
+            alert("两次输入密码不同");
+            return;
+        }
+        var data={
+            account:document.getElementById("account").value,
+            oldPassword:document.getElementById("oldpassword").value,
+            newPassword:document.getElementById("newpassword").value,
+            // secondassword:document.getElementById("secondpassword").value,
+        }
+        if(data.account!==""){
+            if(data.oldPassword!==""){
+                if(data.newPassword!==""){
+                        $.ajax(
+                            {
+                                type: "post",
+                                url: url,
+                                dataType: "json",
+                                data: data,
+                                async: false,
+                                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                success: function (data) {
+                                    alert(data.msg)
+                                    if (data.code == 200) {
+                                        parent.location.href='login.html';
+                                    }
+                                },
+                            })
+
+                    }else{
+                    alert("请输入新密码")
+                }
+            }else{
+                alert("请输入旧密码")
+            }
+        }else {
+            alert("请输入账户")
+        }
+
+    }
+</script>
+</body>
+</html>

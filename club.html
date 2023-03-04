@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title>校园介绍</title>
+    <style>
+        body{
+            background:url("background.jfif");
+            background-size:cover ;
+        }
+        #title{
+            height: 100px;
+            width: 500px;
+            text-align: center;
+            padding: 40px;
+            margin: 0 auto;
+            font-size: 120px;
+            font-family: 华文楷体;
+            color: greenyellow;
+            font-weight: bold;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            height: 300px;
+            width: 1060px;
+            margin: 0 auto;
+            padding: 90px;
+        }
+        ul li{
+            background: darkslategrey;
+            box-sizing: border-box;
+            border: 1px solid #333;
+            height: 310px;
+            width: 300px;
+            float: left;
+            margin-right: 80px;
+        }
+        ul li:last-child{
+            margin-right: 0px;
+        }
+        ul li p{
+            text-align: center;
+        }
+        ul li span{
+            display: block;
+            font-size: 25px;
+            text-align: center;
+            color: #e08c35;
+            font-weight: bold;
+        }
+        .button{
+            width: 60px;
+            height: 20px;
+            margin-left: 238px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="title">
+    <p>社团招新</p>
+</div>
+<ul>
+    <li>
+        <img src="/soccer.jfif" alt="" width="300" height="250">
+        <span>足球社</span>
+        <button class="button" onclick="window.location.href='https://sports.cctv.com/football/china/'">了解更多</button>
+    </li>
+    <li>
+        <img src="/bastketball.jfif" alt="" width="300" height="250">
+        <span>篮球社</span>
+        <button class="button" onclick="window.location.href='https://sports.cctv.com/basketball/china/'">了解更多</button>
+    </li>
+    <li>
+        <img src="/chess.jfif" alt="" width="300" height="250">
+        <span>棋牌社</span>
+        <button class="button" onclick="window.location.href='http://www.ztchess.com/'">了解更多</button>
+    </li>
+</ul>
+
+</body>
+</html>

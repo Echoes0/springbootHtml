@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <title>用户注册</title>
+  <style>
+    body {
+      background: url("02.jfif")no-repeat;
+      background-size:cover;
+    }
+    /*输入框*/
+    input {
+      border: 0;
+      /*单独设置下边框*/
+      width: 70%;
+      font-size: 17px;
+      color: black;
+      background: transparent;
+      /*背景属性*/
+      border-bottom: 1px solid black;
+      padding: 5px 35px;
+      outline: none;
+      /*轮廓*/
+      margin-top: 10px;
+      font-family: 华文行楷;
+    }
+
+    .headbox {
+      width: 25%;
+      height: 500px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.618);
+      margin: auto;
+      margin-top: 50px;
+
+    }
+    /*注册*/
+    .headbox>p {
+      text-align: center;
+      color: black;
+      font-size: 50px;
+      margin-left: 20px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding: 50px;
+      /*font-size: xx-large;*/
+      font-family: 华文行楷;
+    }
+
+    h1 {
+      color: rgba(132, 148, 128, 0.919);
+      margin-left: 20px;
+    }
+
+    .hd_center {
+      float: right;
+      width: 350px;
+    }
+    .td_left {
+      line-height:20px;
+      width: 100px;
+      font-family: 华文行楷;
+      font-size: large;
+      text-align: left;
+    }
+    .hd_form{
+      line-height: 25px;
+    }
+    #submit {
+      width: 150px;
+      height: 40px;
+      margin-top: 30px;
+      background-color: #97b8c191;
+      border: 1px solid black;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #submit:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    #submit:active {
+      background-color: #97b8c191;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    p{
+      margin-right: 20px;
+    }
+    tr{
+      width: 20px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="headbox">
+  <p>注册</p>
+  <div class="hd_center">
+    <div class="hd_form">
+      <form  method="post">
+        <table>
+          <tr>
+            <td class="td_left">姓名:</td>
+            <td class="td_right"><input type="text" name="name" id="name" placeholder="请输入您的姓名"></td>
+          </tr>
+          <tr>
+            <td class="td_left">手机号:</td>
+            <td class="td_right"><input type="text" name="phone" id="phone" placeholder="请输入您的手机号">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">账户:</td>
+            <td class="td_right"><input type="text" name="accout" id="account" placeholder="请输入您的账号">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">密码:</td>
+            <td class="td_right"><input type="password" name="password" id="password"
+                                        placeholder="请输入密码"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="2" align="left"><input type="button" id="submit" value="注册" target="_blank" onclick="adduser()"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  </table>
+</div>
+</body>
+<script>
+  function adduser(){
+    var url = "http://192.168.142.242:8080/administrator/loginAdministrator"
+    const data = {
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      account: document.getElementById("account").value,
+      password: document.getElementById("password").value,
+    };
+    if(data.name!=="") {
+      if(data.phone!==""){
+        if(data.account!==""){
+          if(data.password!==""){
+      $.ajax(
+              {
+                type: "post",
+                url: url,
+                dataType: "json",
+                data: data,
+                async: false,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+                  alert(data.msg)
+                  if (data.code === 200) {
+                    window.location.href = "login.html";
+                  }
+                },
+              })
+    }else{
+            alert("请输入密码")
+          }
+        }else {
+          alert("请输入账户")
+        }
+      }else {
+        alert("请输入手机号")
+      }
+    }else {
+      alert("请输入用户名")
+    }
+  }
+</script>
+</html>

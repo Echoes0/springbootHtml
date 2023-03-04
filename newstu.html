@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <title>新增学生</title>
+  <style type="text/css">
+    body{
+      background-image:url("02.jfif");
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    input{
+      opacity: 0.3;
+      width: 170px;
+      height: 18px;
+    }
+    select{
+      opacity: 0.3;
+      width: 170px;
+      height: 25px;
+    }
+    .allbutton {
+      margin-top: 20px;
+    }
+    .botton{
+      width: 60px;
+      height: 40px;
+      color: black;
+      background-color: #6a686827;
+      border: 1px solid black;
+    }
+    .botton:hover{
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .botton:active {
+      background-color: #ffffff;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    .main{
+      /*position: absolute;*/
+      left:650px;
+      right: 0px;
+      top:100px;
+      bottom: 0px;
+      margin:0 auto;
+      text-align:center;
+      vertical-align:  0 auto;
+    }
+
+  </style>
+</head>
+<body>
+
+<h1 class="title" align="center">学生信息录入</h1>
+<div class="main" >
+  <div>
+    <span>&nbsp;</span>
+  </div>
+  <div>
+    <span>姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <input id="name">
+  </div>
+  <span>&nbsp;</span>
+  <div>
+    <span>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <select id="sex">
+      <option>男</option>
+      <option>女</option>
+    </select>
+  </div><span>&nbsp;</span>
+  <div>
+    <span>生日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <input id="birthday" type="date" placeholder="年/月/日">
+  </div><span>&nbsp;</span>
+  <div>
+    <span>专业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <input id="major">
+  </div><span>&nbsp;</span>
+  <div>
+    <span>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <input id="grade">
+  </div><span>&nbsp;</span>
+  <div>
+    <span>生源地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <select id="source_address">
+      <option>重庆</option>
+      <option>新疆</option>
+      <option>内蒙古</option>
+      <option>广西</option>
+      <option>宁夏</option>
+      <option>西藏</option>
+      <option>四川</option>
+      <option>北京</option>
+      <option>天津</option>
+      <option>山西</option>
+      <option>吉林</option>
+      <option>辽宁</option>
+      <option>黑龙江</option>
+      <option>河北</option>
+      <option>江苏</option>
+      <option>浙江</option>
+      <option>上海</option>
+      <option>安徽</option>
+      <option>江西</option>
+      <option>福建</option>
+      <option>山东</option>
+      <option>河南</option>
+      <option>湖北</option>
+      <option>湖南</option>
+      <option>广东</option>
+      <option>海南</option>
+      <option>贵州</option>
+      <option>云南</option>
+      <option>陕西</option>
+      <option>甘肃</option>
+      <option>青海</option>
+      <option>香港</option>
+      <option>澳门</option>
+      <option>台湾</option>
+    </select>
+  </div><span>&nbsp;</span>
+  <div>
+    <span>入学成绩</span>
+    <input id="scores">
+  </div><span>&nbsp;</span>
+  <div>
+    <span>联系方式</span>
+    <input id="phone">
+  </div><span>&nbsp;</span>
+<!--  <div>-->
+<!--    <span>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
+<!--    <input id="sno">-->
+<!--  </div><span>&nbsp;</span>-->
+  <div>
+    <span>身份证号</span>
+    <input id="id">
+  </div>
+  <div class="allbutton">
+  <div>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <button class="botton " id="addstu" onclick="addstu()">确认</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <button class="botton "  onclick="window.location.href='guanliyuan.html'">取消</button>
+  </div>
+  </div>
+</div>
+</body>
+<script>
+  function addstu(){
+    var url = "http://192.168.142.242:8080/student/addStudent"
+    var data={
+      name: document.getElementById("name").value,
+      sex:document.getElementById("sex").value,
+      birthday:document.getElementById("birthday").value ,
+      major:document.getElementById("major").value,
+      grade:document.getElementById("grade").value,
+      source_address:document.getElementById("source_address").value,
+      scores:document.getElementById("scores").value,
+      phone:document.getElementById("phone").value,
+      id:document.getElementById("id").value,
+    }
+    if(data.name&&data.sex&&data.birthday&&data.major&&data.grade&&data.source_address&&data.scores&&data.phone&&data.id!=="") {
+    if(data.id.length ===18) {
+      $.ajax(
+              {
+                type: "post",
+                url: url,
+                dataType: "json",
+                data: data,
+                async: false,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+                  alert(data.msg)
+                  if (data.code == 200) {
+                    window.location.href = "club.html";
+                  }
+                },
+              })
+    }else{
+      alert("请输入正确的身份证号")
+    }
+  }else{
+      alert("基本信息不能为空")
+    }
+  }
+</script>
+</html>

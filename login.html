@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title>登录</title>
+    <style>
+        body {
+            background: url("02.jfif")no-repeat;
+            background-size:cover;
+        }
+        #bigbox {
+            width: 20%;
+            height: 420px;
+            background-color: #97b8c191;
+            margin: auto;
+            margin-top: 6%;
+            text-align: center;
+            border-radius: 10px;
+            padding: 50px;
+            font-size: 25px;
+            font-family: 华文行楷;
+        }
+        /*验证码*/
+        #code {
+            color: black;
+            /*字体颜色*/
+            /*background-color: #97b8c19;*/
+            font-size: 18pt;
+            font-family:华文隶书;
+            padding: 1px 35px 5px 35px;
+            margin-left: 55%;
+            /*cursor: pointer;*/
+        }
+        h1 {
+            color: black;
+            margin-top: 5%;
+        }
+        .Box {
+            margin-top: 20%;
+        }
+        input {
+            border: 0;
+            /*单独设置下边框*/
+            width: 70%;
+            font-size: 20px;
+            color: black;
+            background: transparent;
+            /*背景属性*/
+            border-bottom: 1px solid black;
+            padding: 5px 10px;
+            outline: none;
+            /*轮廓*/
+            margin-top: 10px;
+            font-family: 微软雅黑;
+        }
+        .button {
+            margin-top: 20px;
+            height: 20%;
+            size: 20px;
+            width: 20%;
+            font-size: 15px;
+            font-family:  华文行楷;
+            text-align: center;
+        }
+        .allbutton {
+            margin-top: 30px;
+        }
+
+        .add {
+            width: 115px;
+            height: 40px;
+            color: black;
+            background-color: #6a686827;
+            font-family: 华文行楷;
+            font-size: medium;
+        }
+
+        .add:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .add:active {
+            background-color: #ffffff;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        ul li{
+            position: absolute;
+            border:1px solid dodgerblue;
+            background-color: white;
+            width: 15px;
+            height: 15px;
+            list-style: none;
+            opacity: 0;
+        }
+        .square li{
+            top: 40vh;
+            left: 60vw;
+            /*动画 时长 线性 无限*/
+            animation: square 10s linear infinite;
+        }
+        .square li:nth-child(2){
+            top: 80vh;
+            left: 85vw;
+            animation-delay: 7s;
+        }
+        .square li:nth-child(3){
+            top: 80vh;
+            left: 70vw;
+            animation-delay: 2s;
+        }
+        .square li:nth-child(4){
+            top: 80vh;
+            left: 40vw;
+            animation-delay: 4s;
+        }
+        .square li:nth-child(5){
+            top: 80vh;
+            left: 10vw;
+            animation-delay: 5s;
+        }
+        .circle li{
+            bottom: 0;
+            left: 15vw;
+            animation: circle 10s linear infinite;
+        }
+        .circle li:nth-child(2){
+            left: 35vw;
+            animation-delay: 2s;
+        }
+        .circle li:nth-child(3){
+            left: 55vw;
+            animation-delay: 4s;
+        }
+        .circle li:nth-child(4){
+            left: 75vw;
+            animation-delay: 6s;
+        }
+        .circle li:nth-child(5){
+            left: 95vw;
+            animation-delay: 8s;
+        }
+        /*定义动画*/
+        @keyframes square {
+            0%{
+                transform:scale(0) rotateY(0deg);
+                opacity: 1;
+            }
+            100%{
+                transform: scale(5) rotateY(1000deg);
+                opacity: 0;
+            }
+        }
+        @keyframes circle {
+            0%{
+                transform:scale(0) rotateY(0deg);
+                opacity: 1;
+                bottom: 0;
+                border-radius: 0;
+            }
+            100%{
+                transform: scale(5) rotateY(1000deg);
+                opacity: 0;
+                bottom: 90vh;
+                border-radius: 50%;
+            }
+        }
+
+    </style>
+</head>
+
+<body onload="changeImg()">
+
+<div id="bigbox">
+    <h1>登录</h1>
+    <div class="Box">
+
+        <div id="first_box">
+            <input type="text" id="name" placeholder="请输入账户">
+        </div>
+        <div id="second_box">
+            <input type="password" id="password" placeholder="请输入密码">
+        </div>
+        <div id="third_box">
+            <input type="text" id="vcode" placeholder="请输入验证码"  onfocus="this.value=''" onblur="if(this.value=='')this.value=''" />
+        </div>
+
+        <div id="forth_box">
+            <span id="code" title="看不清，换一张"></span>
+        </div>
+    </div><span>&nbsp;</span>
+    <div class="allbutton">
+        <!-- 登录按钮 -->
+        <button onclick="login()" type="button" class="add">登录</button>
+        <!-- 注册按钮 -->
+        <button onclick="window.location.href='register.html'" type="button" class="add">注册</button>
+    </div>
+</div>
+<div class="square">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div class="circle">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+
+    $.dou
+    function login() {
+        var url = "http://localhost:8080/administrator/signAdministrator"
+        var data = {
+            account: document.getElementById("name").value,
+            password: document.getElementById("password").value
+        }
+        if (data.account !== '') {
+            if (data.password !== '') {
+                if(check()){
+                $.ajax(
+                    {
+                        type: "post",
+                        url: url,
+                        dataType: "json",
+                        data: data,
+                        async: false,
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            alert(data.msg)
+                            if (data.code == 200) {
+                                window.location.href = "daohang.html";
+                            }
+                        },
+                    })
+            } }else {
+                alert("账户或密码不能为空")
+            }
+        } else {
+            alert("账户或密码不能为空")
+        }
+    }
+        var code; //声明一个变量用于存储生成的验证码
+        document.getElementById("code").onclick = changeImg;
+        function changeImg() {
+            var arrays = new Array(
+                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x', 'y', 'z',
+                // 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                // 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                // 'U', 'V', 'W', 'X', 'Y', 'Z'
+            );
+            code = ''; //重新初始化验证码
+            //alert(arrays.length);
+            //随机从数组中获取四个元素组成验证码
+            for(var i = 0; i < 4; i++) {
+                //随机获取一个数组的下标
+                var r = parseInt(Math.random() * arrays.length);
+                code += arrays[r];
+            }
+            document.getElementById('code').innerHTML = code; //将验证码写入指定区域
+        }
+    window.onload = myfun;
+        //效验验证码(表单被提交时触发)
+        function check() {
+            //获取用户输入的验证码
+            var input_code = document.getElementById('vcode').value;
+            if(input_code.toLowerCase() == code.toLowerCase()) {
+                //验证码正确(表单提交)
+                return true;
+            }
+            alert("请输入正确的验证码!");
+            //验证码不正确,表单不允许提交
+            return false;
+    }
+</script>
+</html>

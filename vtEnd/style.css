@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+.container {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  background: radial-gradient(
+      rgba(151, 151, 151, 1) 0,
+      rgba(0, 0, 0, 0) 100%,
+      rgba(243, 122, 36, 1) 46%
+    )
+    url() no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+  transform-origin: 0px 0px;
+  filter: hue-rotate(14deg) saturate(118%) brightness(108%) contrast(105%)
+    opacity(100%) grayscale(0%);
+}
+.container::-webkit-scrollbar {
+  display: none;
+}
+#item452d0090-b8d7-11ed-9f56-29d20bff0b75 {
+  overflow: hidden;
+  position: absolute;
+  left: 733.75px;
+  top: 0px;
+  width: 452.5px;
+  height: 67.5px;
+  z-index: 7;
+  transform: rotate(0deg);
+}
+#item2e11a989-07b5-42b2-93d9-58b8a0ede218 {
+  overflow: hidden;
+  position: absolute;
+  left: 2.5px;
+  top: 0px;
+  width: 450px;
+  height: 60px;
+  z-index: 1;
+  transform: rotate(0deg);
+}
+#itembc39e28d-8cf1-4d37-b675-0353e3f831bf {
+  overflow: hidden;
+  position: absolute;
+  left: 1662.5px;
+  top: 0px;
+  width: 257.5px;
+  height: 70px;
+  z-index: 6;
+  transform: rotate(0deg);
+}
+#itema41d4680-2442-4037-b790-8032429bc70c {
+  overflow: hidden;
+  position: absolute;
+  left: 1350.29px;
+  top: 188.07px;
+  width: 632.57px;
+  height: 453.14px;
+  z-index: 5;
+  transform: rotate(0deg);
+}
+#itema66337a5-21f8-4879-b4c2-c6b54c63316e {
+  overflow: hidden;
+  position: absolute;
+  left: -226.79px;
+  top: 88.57px;
+  width: 2373.57px;
+  height: 1145.29px;
+  z-index: 4;
+  transform: rotate(0deg);
+  background: rgba(190, 25, 25, 0);
+}
+#item4ab30786-7f70-4df6-8fa6-eda3a133e137 {
+  overflow: hidden;
+  position: absolute;
+  left: 1369.99px;
+  top: 677.14px;
+  width: 550.01px;
+  height: 402.86px;
+  z-index: 3;
+  transform: rotate(0deg);
+  background: rgba(0, 0, 0, 0);
+}
+#item780a1941-dfb2-42af-8a43-8d14d3a4bca8 {
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  top: 45.71px;
+  width: 528.93px;
+  height: 405.72px;
+  z-index: 2;
+  transform: rotate(0deg);
+  background: rgba(0, 0, 0, 0);
+  padding: 10px;
+}
+#itembdf03d30-df6c-4763-84ab-2639fe5d3e32 {
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  top: 680.01px;
+  width: 739.99px;
+  height: 393.82px;
+  z-index: 1;
+  transform: rotate(0deg);
+  background: rgba(0, 0, 0, 0);
+}
