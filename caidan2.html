@@ -299,7 +299,7 @@
         methods: {
             loadTable(num) {
                 this.pageNum = num;
-               $.post("http://47.96.229.44:8080/student/selectStudent?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&name="+this.name).then(res => {
+               $.post("https://47.96.229.44:8080/student/selectStudent?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&name="+this.name).then(res => {
                     this.page = res.data;
                 });
             },
